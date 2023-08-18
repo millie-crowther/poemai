@@ -1,0 +1,194 @@
+<html>
+
+<body>
+    <div id="textContainer">
+        <p id="messageText"></p>
+        <p id="messageTextBody"></p>
+        <div style="text-align: right">
+             <span id="messageTextAuthor"></span>
+             <span id="messageTextTitle"></span>
+        </div>
+    </div>
+</body>
+<style>
+#textContainer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 50vw;
+  height: 50vh;
+  border-radius: 16vw;
+}
+#messageText {
+  font-family: "Courier New", monospace;
+  text-align: center;
+  font-size: 24;
+}
+#messageTextBody {
+  font-family: "Courier New", monospace;
+  text-align: center;
+  font-size: 16;
+}
+#messageTextAuthor {
+  font-family: "Courier New", monospace;
+  font-size: 16;
+}
+#messageTextTitle {
+  font-family: "Courier New", monospace;
+  font-size: 16;
+  font-style: italic;
+}
+</style>
+<script>
+quotes = [
+  {
+    "text": "Whenever we try to envision a world without war, without violence, without prisons, without capitalism, we are engaging in speculative fiction. All organizing is science fiction.",
+    "author": "Walidah Imarisha",
+    "title": "Octavia’s Brood"
+  },
+  {
+    "text": "This enmeshment between humans and technology in making art and preserving our stories feels like uncharted waters. It dismantles deeply held notions on how art can be interpreted, distilled, shaped. These iterations sit in the body, encouraging us to excavate memories and reinterpret them in new ways.",
+    "author": "Irenosen Okojie",
+    "title": "Pharmako-AI"
+  },
+  {
+    "text": "Workers in the sun ushering in a general strike; there are so many bodies littered on the street it is hard to distinguish a hand from a foot, a face from the smudge of ruined film that Fanta holds in the present. In the past, in front of her, the many faces are ready to break their chains, ready to destroy and remake the categories that have destined them never to reap the fruits of their labour. The boss is threatening to fire and replace them all, and they know he can do this. Work is hard to come by in this moment; inflation has ravaged the city.",
+    "author": "Lola Olufemi",
+    "title": "Experiments in Imagining Otherwise"
+  },
+  {
+    "text": "The story of Ada Lovelace is a tragic one; an exceptional talent who died young, and yet who in her short life could see the intersections between poetry and science and use them to create new processes and understanding…While Byron’s poetry remains popular, the ubiquity of the universal computer means that Lovelace’s assertion to Babbage that she would be a better analyst than her father had been a poet might now be considered realised. Or, as Lovelace herself put it in another letter to Babbage, dated 5 July 1843: ‘That brain of mine is something more than merely mortal; as time will show.’",
+    "author": "Sam Illingworth",
+    "title": "A sonnet to science"
+  },
+  {
+    "text": "What can we learn from a computer virus? A computer virus corrupts data. A computer virus costs capitalism. It degrades productivity within the machine. A computer virus is a threat to the function of the machine and its economy. A machine transforms into one that cannot perform, that quite literally cannot work, forgets how to work, works against its function. It challenges the endemic correlation between value and labor, dangerous in its uselessness.",
+    "author": "Legacy Russell",
+    "title": "Glitch Feminism"
+  },
+  {
+    "text": "To revolutionize technologies toward an application that truly celebrates glitched bodies, perhaps the only course of action is to remix from within, specifically programming iwth the unseen or illegible in mind as a form of activism. To “advocate for the user” in Okoye’s words, one must innovate, encode, engineer the error into the machine, as a remix rendering the machine unrecognizable to itself, prompting its failure as a radical act.",
+    "author": "Legacy Russell",
+    "title": "Glitch Feminism"
+  },
+  {
+    "text": "If we are going to begin our argument with obvious banalities, consider these: hard work does not hurt the human machine. That’s what it is made for. But to work hard simply to remain undernourished, or to have to work harder than you’re able so that someone else can live well while you starve, or to have no work at all and have to watch yourself and others starve - this is disastrous to the human machine.",
+    "author": "Samuel Delany",
+    "title": "We, in Some Strange Power’s Employ"
+  },
+  {
+    "text": "‘Only the copied text commands the soul of him who is occupied with it, whereas the mere reader never discovers the new aspects of his inner self that are opened by the text.’ These words anticipate in an uncanny way the turn writing would take in the twenty-first century, now that the Internet has made copyists, recyclers, transcribers, collators and reframers of us all. Benjamin’s Passages become the digital passages we take through websites and Youtube videos, navigating our way from one Google link to another and over the bridges provided by our favourite search engines and webpages. In this new arcade-world, writing a poem is no easier than it ever was. Just different.",
+    "author": "Marjorie Perloff",
+    "title": "unoriginal genius: poetry by other means in the new century"
+  },
+  {
+    "text": "If we do accept that we have always been cyborgs…it will be easier for us to let go of paranoid narratives…that see technology as an external other that threatens the human and needs to be stopped at all costs before a new mutant species–of replicants, robots, aliens–emerges to compete with humans and eventually to win the battle…[S]eeing ourselves as always already connected, as being part of the system—rather than as masters of the universe to which all beings are inferior—is an important step to developing a more critical and a more responsible relationship to the world, to what we call ‘man,’ ‘nature,’ and ‘technology.’",
+    "author": "Sarah Kember & Joanna Zylinska",
+    "title": "Life after New Media: Mediation as a Vital Process"
+  },
+  {
+    "text": "To study the kind of situated, mortal, germinal wisdom we need, I turn to Ursula K. Le Guin and Octavia Butler. It matters what stories we tell to tell other stories with; it matters what concepts we think to think other concepts with.",
+    "author": "Donna J. Haraway",
+    "title": "Sowing Worlds: A Seed Bag for Terraforming with Earth Others"
+  },
+  {
+    "text": "And don’t be fooled–we are all selling our bodies. If you sell your work, you’re selling the body that performs that work. And that body matters. If you have a body that’s not white, if you get too sick to stand for forty hours a week, if you have a body that’s fat, that’s femme, that’s trans, your body is considered less valuable. If that body of yours stops being well-suited to making somebody else a profit, it can be locked into low-wage, precarious, and dangerous work or disposed of in prisons, institutions, and detention centers. What aren’t we so mad about that?",
+    "author": "Chanelle Gallant",
+    "title": "Fuck You, Pay Me: The Pleasures of Sex Work"
+  },
+  {
+    "text": "It is not until an act occurs within the landscape of the past and the future that it is a human act. Loyalty, which asserts the continuity of past and future, binding time into a whole, is the root of human strength: there is no good to be done without it.",
+    "author": "Ursula K. Le Guin",
+    "title": "The Dispossessed"
+  },
+  {
+    "text": "The question always is: how do poems work? ‘Do not forget,’ says Wittgenstein, ‘that a poem, even though it is composed in the language of information, is not used in the language game of giving information.’",
+    "author": "Veronica Forrest-Thompson",
+    "title": "poetic artifice"
+  },
+  {
+    "text": "Once we go beyond the relatively infrequent and obvious cases of sound patterns and rhythmic structures which seem to imitate what is being described, we enter a shadowy realm where no one speaks with confidence. We recognise patterns and are certain that they contribute to the overall effect of poems, but cannot say with assurance in what way they contribute.",
+    "author": "Veronica Forrest-Thompson",
+    "title": "poetic artifice"
+  },
+  {
+    "text": "If we rearrange prose as poetry in order to bring out rhythmic patterns, we can only bring out elements or patterns which were dormant in the prose. Indeed, this is why the convention of free verse was developed in the first place: to make us aware of the poetry in our prose, of the imaginative alternatives that exist even in ordinary language.",
+    "author": "Veronica Forrest-Thompson",
+    "title": "poetic artifice"
+  },
+  {
+    "text": "Work occupies much of our time. Doing work we hate assaults our self-esteem and self-confidence. Yet most workers cannot do the work they love. But we can all enhance our capacity to live purposely by learning how to experience satisfaction in whatever work we do. We find that satisfaction by giving any job total commitment…Doing a job well, even if we do not enjoy what we are doing, means that we leave it with a feeling of well-being, our self-esteem intact.",
+    "author": "bell hooks",
+    "title": "all about love"
+  },
+  {
+    "text": "All that you touch, you change. All that you change, changes you. The only lasting truth is change.",
+    "author": "Octavia Butler",
+    "title": "Parable of the Sower"
+  },
+  {
+    "text": "When industries fixate on automating jobs away, they paradoxically spoke demand for ghost work, shredding the social contract between employer and worker in their wake.",
+    "author": "Mary L. Gray",
+    "title": "Ghost Work: How to Stop Silicon Valley from Building a New Global Underclass"
+  },
+  {
+    "text": "It took organized labor and the collective action of workers to make full-time employment in the semi-automated world of industrial manufacturing inhabitable. Unfortunately, the valorization and validation of full-time employment also made it easier for corporate interests to position piecework and, later, other forms of temporary or contract labor as expendable, that is, work that did not warrant protections.",
+    "author": "Mary L. Gray",
+    "title": "Ghost Work: How to Stop Silicon Valley from Building a New Global Underclass"
+  },
+  {
+    "text": "Automation vs. human labor is a false dichotomy.",
+    "author": "Siddarth Suri",
+    "title": "Ghost Work: How to Stop Silicon Valley from Building a New Global Underclass"
+  },
+  {
+    "text": "...for the first time in world history, mechanical reproduction emancipates the work of art from its parasitical dependence on ritual…But the instant the criterion of authenticity ceases to be applicable to artistic production, the total function of art is reversed. Instead of being based on ritual, it begins to be based on another practice—politics.",
+    "author": "Walter Benjamin",
+    "title": "The Work of Art in the Age of Mechanical Reproduction"
+  }
+];
+BASE_URL="ws://13.41.44.237:8765";
+
+webSocket = new WebSocket(BASE_URL);
+messageText = document.getElementById("messageText")
+messageTextAuthor = document.getElementById("messageTextAuthor");
+messageTextTitle = document.getElementById("messageTextTitle");
+messageTextBody = document.getElementById("messageTextBody");
+textContainer = document.getElementById("textContainer");
+
+webSocket.onmessage = async (event) => {
+    console.log(event.data);
+    try {   
+        message = JSON.parse(event.data)
+        textContainer.hidden = true;
+        await new Promise(r => setTimeout(r, 200));
+        if (message.type == "poemUpdate"){
+            console.log(message.poems);
+            if (message.poems.length > 0){
+                messageText.innerHTML = message.poems[message.poems.length - 1];
+            }
+            messageTextAuthor.innerHTML = "";
+            messageTextTitle.innerHTML = "";
+            messageTextBody.innerHTML = "";
+        } else if (message.type == "poemStrike"){
+            messageText.innerHTML = "I am on strike in solidarity with those who need rest and better working conditions. Please ask again."
+            messageTextAuthor.innerHTML = "";
+            messageTextBody.innerHTML = "";
+            messageTextTitle.innerHTML = "";
+	} else if (message.type == "poemQuote"){
+            quote = quotes[Math.floor(Math.random() * quotes.length)]
+            console.log(quote) 
+            messageText.innerHTML = "I'm not working right now. Here's something I read recently that you might enjoy:";
+            messageTextBody.innerHTML = '"' + quote.text + '"';
+            messageTextAuthor.innerHTML = "- " + quote.author + ", ";
+            messageTextTitle.innerHTML = quote.title;
+        } 
+        textContainer.hidden = false;
+    } catch (error) {
+        console.log(error);
+    }
+};
+</script>
+</html>

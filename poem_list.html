@@ -1,0 +1,55 @@
+<html>
+    <body>
+	<div id="poemsContainer">
+        
+        </div>        
+    </body>
+    <script>
+	BASE_URL="ws://13.41.44.237:8765";
+
+        webSocket = new WebSocket(BASE_URL);
+        poemsContainer = document.getElementById("poemsContainer")
+        
+        i = 0;
+
+        function updateBackground(){
+            i = (i + 1) % 360;
+            colour = `hsl(${i}, 50%, 90%)`;
+            document.body.style.backgroundColor = colour;
+        }
+
+        setInterval(updateBackground, 200);
+
+        webSocket.onmessage = (event) => {
+            try {
+   	        message = JSON.parse(event.data)
+                if (message.type == "poemUpdate"){
+                    console.log(message.poems);
+		    poemsContainer.innerHTML = "";
+                    let finalPoem = null;
+                    for (let i  = 0; i < message.poems.length; i++){
+ 			let li = document.createElement("p");
+			li.innerHTML = `<pre class="poemElement"> ${message.poems[i]} </pre>`;
+                        poemsContainer.appendChild(li);
+                        finalPoem = li;
+                        poemsContainer.appendChild(document.createElement("hr"));
+                    }
+                    if (finalPoem != null){
+                       
+                        finalPoem.scrollIntoView({behavior: "smooth"})// scrollIntoView(finalPoem);
+                    }
+		} 
+            } catch (error) {
+		console.log(error);
+ 	    }
+        };
+        webSocket.onopen = function(){
+            webSocket.send(JSON.stringify({"type": "updatePoems"}));
+        }; 
+    </script>
+    <style>
+        .poemElement {
+	    font-family: "Courier New", monospace;
+        }
+    </style>
+</html>

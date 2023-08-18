@@ -1,0 +1,60 @@
+<html>
+
+<body>
+<a href="#" onclick="onClick()">
+    <div id="buttonContainer" style="background-color: 15ad45;" class="container" onmousedown="onMouseDown()" onmouseup="onMouseUp()">
+        <p class="buttonText">Will You Please Write Me A Poem?<p>
+    </div>
+</a>
+</body>
+<style>
+.container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 33vw;
+  height: 33vw;
+  border-radius: 16vw;
+}
+
+.buttonText {
+  text-align: center;
+  color: white;
+  -webkit-transform: translate(0, 15vw);
+  transform: translate(0, 15vw);
+  font-family: "Courier New", monospace;
+}
+body {
+  height: 100%;
+}
+
+button {
+  width: 100%
+  height: 100%
+}
+</style>
+<script>
+BASE_URL="ws://13.41.44.237:8765";
+webSocket = new WebSocket(BASE_URL);
+buttonContainer = document.getElementById("buttonContainer");
+
+function onMouseDown(){
+    buttonContainer.style["background-color"] = "0c6629";
+}
+
+function onMouseUp(){
+    buttonContainer.style["background-color"] = "15ad45";
+}
+
+function onClick(event){
+        webSocket.send(JSON.stringify({
+           "type": "buttonClick"
+        }));
+}
+webSocket.onmessage = (event) => {
+  console.log(event.data);
+};
+</script>
+</html>

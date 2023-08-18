@@ -1,0 +1,45 @@
+<html>
+    <body>
+        <h1>Admin page</h1>
+        <button type="button" onclick="onReset()">Click here to reset the poem list </button>
+        <h3>Here is the latest poem:</h3>
+        <p id="latestPoem"></p>
+        <button type="button" onclick="onPrint()">Click here to print the latest poem (make sure you select Landscape when printing to get it on the left)</button>
+    </body>
+    <script>
+	BASE_URL="ws://13.41.44.237:8765";
+
+        webSocket = new WebSocket(BASE_URL);
+        poemsContainer = document.getElementById("latestPoem");
+        function onReset(){
+            webSocket.send(JSON.stringify({"type": "reset"}));
+        }
+
+        webSocket.onmessage = (event) => {
+            try {   
+                message = JSON.parse(event.data)
+                if (message.type = "poemUpdate"){
+                    console.log(message.poems);
+                    if (message.poems.length > 0){
+                        poemsContainer.innerHTML = message.poems[message.poems.length - 1];
+                    } else {
+                        poemsContainer.innerHTML = "";
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        webSocket.onopen = function(){
+            webSocket.send(JSON.stringify({"type": "updatePoems"}));
+        };
+
+        function onPrint(){
+            let w = window.open()
+            w.document.body.innerHTML = `<p style="width: 50%; font-family: 'Courier New', monospace;">${poemsContainer.innerHTML}</p>`;
+            w.print()
+            w.close()
+        }
+    </script>
+</html>
